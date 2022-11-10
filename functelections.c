@@ -12,23 +12,26 @@ int add_election( char * filename, election e)
 }
 int modify_election( char * filename, char id[20], election enew)
 {
-    int v=0;
+    int v=0;int i;
     election e;
     FILE * f=fopen(filename, "r");
     FILE * f2=fopen("new.txt", "w");
     if (f!=NULL && f2!=NULL)
     {
         while(fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)
-        {
-            if(e.elecid==id)
+        {   for(i=0;e.elecid[i]=='\0';i++)
             {
-                fprintf(f2,"%s %d/%d/%d %d %d %d %d %d\n",enew.elecid,enew.date.d,enew.date.m,enew.date.y,enew.municip,enew.numhab,enew.numps,enew.municipal,enew.legislative);
-                v=1;
+                if(e.elecid[i]==id[i])
+                {
+                    fprintf(f2,"%s %d/%d/%d %d %d %d %d %d\n",enew.elecid,enew.date.d,enew.date.m,enew.date.y,enew.municip,enew.numhab,enew.numps,enew.municipal,enew.legislative);
+                    v=1;
+                }
+                else
+                {
+                    fprintf(f2,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative);
+                }
             }
-            else
-            {
-                fprintf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative);
-            }
+
 
         }
     }
@@ -41,7 +44,7 @@ int modify_election( char * filename, char id[20], election enew)
 }
 int delete_election (char * filename, char id[20])
 {
-    int v=0;
+    int v=0;int i;
     election e;
     FILE * f=fopen(filename,"r");
     FILE * f2=fopen("new.txt","w");
@@ -49,10 +52,18 @@ int delete_election (char * filename, char id[20])
     {
         while(fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)
         {
-            if (e.elecid==id)
-                v=1;
-            else
-                fprintf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative);
+             for(i=0;e.elecid[i]=='\0';i++)
+            {
+                if(e.elecid[i]==id[i])
+                {
+                    v=1;
+                }
+                else
+                {
+                    fprintf(f2,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative);
+                }
+            }
+
         }
     }
     fclose(f);
@@ -64,20 +75,20 @@ int delete_election (char * filename, char id[20])
 election search_election(char * filename, char id[20])
 {
     election e;
-    int v;
+    int v;int i;
     FILE * f=fopen(filename,"r");
     if(f!=NULL)
     {
         while((fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)&& v==0)
-        {
-            if(e.elecid==id)
-                v=1;
+        {   for(i=0;e.elecid[i]=='\0';i++)
+            {   if(e.elecid[i]==id[i])
+                    v=1;
+            }
+
         }
     }
     fclose(f);
-    int i;
     if(v==0)
         e.elecid[0]=-1;
     return e;
 }
-
