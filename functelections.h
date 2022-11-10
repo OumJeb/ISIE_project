@@ -10,6 +10,10 @@ typedef struct { char elecid[20];
 		 int municipal;
 		 int legislative;
 		}election;
+int add_election( char * filename, election e);
+int modify_election( char * filename, char id[20], election enew);
+int delete_election (char * filename, char id[20]);
+election search_election(char * filename, char id[20]);
 #endif // FUNCTELECTIONS_H_INCLUDED
 
 
