@@ -1,4 +1,5 @@
 #include "functelections.h"
+#include <string.h>
 int add_election( char * filename, election e)
 {
     FILE * f=fopen(filename, "a");
@@ -19,9 +20,8 @@ int modify_election( char * filename, char id[20], election enew)
     if (f!=NULL && f2!=NULL)
     {
         while(fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)
-        {   for(i=0;e.elecid[i]=='\0';i++)
-            {
-                if(e.elecid[i]==id[i])
+        {
+                if(strcmp(e.elecid,id)==0)
                 {
                     fprintf(f2,"%s %d/%d/%d %d %d %d %d %d\n",enew.elecid,enew.date.d,enew.date.m,enew.date.y,enew.municip,enew.numhab,enew.numps,enew.municipal,enew.legislative);
                     v=1;
@@ -30,7 +30,7 @@ int modify_election( char * filename, char id[20], election enew)
                 {
                     fprintf(f2,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative);
                 }
-            }
+
 
 
         }
@@ -52,9 +52,9 @@ int delete_election (char * filename, char id[20])
     {
         while(fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)
         {
-             for(i=0;e.elecid[i]=='\0';i++)
-            {
-                if(e.elecid[i]==id[i])
+
+
+                if(strcmp(e.elecid,id)==0)
                 {
                     v=1;
                 }
@@ -62,7 +62,7 @@ int delete_election (char * filename, char id[20])
                 {
                     fprintf(f2,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative);
                 }
-            }
+
 
         }
     }
@@ -80,10 +80,10 @@ election search_election(char * filename, char id[20])
     if(f!=NULL)
     {
         while((fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)&& v==0)
-        {   for(i=0;e.elecid[i]=='\0';i++)
-            {   if(e.elecid[i]==id[i])
+        {
+              if(strcmp(e.elecid,id)==0)
                     v=1;
-            }
+
 
         }
     }
