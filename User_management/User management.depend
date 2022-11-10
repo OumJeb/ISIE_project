@@ -1,0 +1,14 @@
+# depslib dependency file v1.0
+1514140574 source:c:\users\zaineb\desktop\esprit\algorithms and data structures\user management\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1668121583 source:c:\users\zaineb\desktop\esprit\algorithms and data structures\user management\functions.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"functions.h"
+
+1668115420 c:\users\zaineb\desktop\esprit\algorithms and data structures\user management\functions.h
+	<stdio.h>
+
