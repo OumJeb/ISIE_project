@@ -18,7 +18,7 @@ int modify_election( char * filename, char id[20], election enew)
     FILE * f2=fopen("new.txt", "w");
     if (f!=NULL && f2!=NULL)
     {
-        while(fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative)!=EOF)
+        while(fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)
         {
             if(e.elecid==id)
             {
@@ -47,7 +47,7 @@ int delete_election (char * filename, char id[20])
     FILE * f2=fopen("new.txt","w");
     if(f!=NULL && f2!=NULL)
     {
-        while(fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative)!=EOF)
+        while(fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)
         {
             if (e.elecid==id)
                 v=1;
@@ -68,7 +68,7 @@ election search_election(char * filename, char id[20])
     FILE * f=fopen(filename,"r");
     if(f!=NULL)
     {
-        while((fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,e.date.d,e.date.m,e.date.y,e.municip,e.numhab,e.numps,e.municipal,e.legislative)!=EOF)&& v==0)
+        while((fscanf(f,"%s %d/%d/%d %d %d %d %d %d\n",e.elecid,&e.date.d,&e.date.m,&e.date.y,&e.municip,&e.numhab,&e.numps,&e.municipal,&e.legislative)!=EOF)&& v==0)
         {
             if(e.elecid==id)
                 v=1;
