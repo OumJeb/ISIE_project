@@ -65,7 +65,7 @@ int delete_claims (char * filename, char id[20])
     fclose(f2);
     remove(filename);
     rename("new.txt", filename);
-    return v;
+    return v;}
 
 election search_claims(char * filename, char id[20])
 {
