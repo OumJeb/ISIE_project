@@ -89,6 +89,6 @@ election search_election(char * filename, char id[20])
     }
     fclose(f);
     if(v==0)
-        e.elecid[0]=-1;
+        e.elecid[0]='N';
     return e;
 }
