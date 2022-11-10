@@ -4,7 +4,7 @@
 
 int main()
 {
-    election e1={"1",11/11/2022,1,2,1,1,0},e2={"2",11/10/2022,1,2,1,0,1};
+    election e1={"1",11,11,2022,1,2,1,1,0},e2={"2",11,10,2022,1,2,1,0,1};
     int x=add_election("elections.txt",e1);
     if(x==1)
         printf("\n add successful");
@@ -19,7 +19,7 @@ int main()
     else printf("\n error deleting");
     election e3;
     e3=search_election("elections.txt","3");
-    if(e3.elecid[0]==-1)
+    if(e3.elecid[0]=='N')
         printf("\n not found");
 
 
