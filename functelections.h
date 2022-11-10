@@ -10,3 +10,6 @@ typedef struct { char elecid[20];
 		 int municipal;
 		 int legislative;
 		}election;
+#endif // FUNCTELECTIONS_H_INCLUDED
+
+
