@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "fonction.h"
+#include "claimsfunctions.h"
 #include <gtk/gtk.h>
 
     int add_claims(char* file name,claims cl){
