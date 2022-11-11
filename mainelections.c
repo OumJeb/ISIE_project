@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "functelections.h"
 
 int main()
@@ -19,7 +20,7 @@ int main()
     else printf("\n error deleting");
     election e3;
     e3=search_election("elections.txt","3");
-    if(e3.elecid[0]=='N')
+    if(strcmp(e3.elecid,"N"))
         printf("\n not found");
 
 
