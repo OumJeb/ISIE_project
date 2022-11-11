@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include"functions.h"
+#include"psfunctions.h"
 int add(char * filename,Pollingstation p)
 {
      FILE * f=fopen(filename,"a");
