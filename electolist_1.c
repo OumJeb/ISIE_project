@@ -1,4 +1,4 @@
-#include"HEADERS.h"
+#include"electolist_1.h"
 #include<stdio.h>
 int add_electoral(electoral e, char * liselect )
 {
