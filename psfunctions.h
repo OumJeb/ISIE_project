@@ -1,6 +1,6 @@
 #ifndef FUNCTIONS_H_INCLUDED
 #define FUNCTIONS_H_INCLUDED
-#include"functions.h"
+
 typedef struct{
 int hours ;
 int mins; }time;
