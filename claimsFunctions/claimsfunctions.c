@@ -23,7 +23,7 @@ int modify_claims( char * filename, char id[20],Claims cnew)
     FILE * f2=fopen("new.txt", "w");
     if (f!=NULL && f2!=NULL)
     {
-        while(fscanf(f,"%s %d %d %d/%d/%d %d %s\n",cl.id,cl.type,cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text)!=EOF)
+        while(fscanf(f,"%s %d %d %d/%d/%d %d %s\n",cl.id,&cl.type,&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)
         {
             if(strcmp(cl.id,id)==0)
             {
@@ -53,7 +53,7 @@ int delete_claims (char * filename, char id[20])
     FILE * f2=fopen("new.txt","w");
     if(f!=NULL && f2!=NULL)
     {
-        while(fscanf(f,"%s %d %d %d/%d/%d %d %s\n",cl.id,cl.type,cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text)!=EOF)
+        while(fscanf(f,"%s %d %d %d/%d/%d %d %s\n",cl.id,&cl.type,&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)
         {
             if (strcmp(cl.id,id)==0)
                 v=1;
@@ -74,7 +74,7 @@ Claims search_claims(char * filename, char id[20])
     FILE * f=fopen(filename,"r");
     if(f!=NULL)
     {
-        while((fscanf(f,"%s %d %d %d/%d/%d %d %s\n",cl.id,cl.type,cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text)!=EOF)&& v==0)
+        while((fscanf(f,"%s %d %d %d/%d/%d %d %s\n",cl.id,&cl.type,&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)&& v==0)
         {
               if(strcmp(cl.id,id)==0)
                     v=1;
