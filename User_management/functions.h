@@ -17,10 +17,10 @@ typedef struct user
     int atype[10];
 } user;
 
-int add(char *, user);
-int modify( char *, int, user);
-int deleteu(char *, int);
-user find_user(char *, int);
+int add(char * filename, user neww);
+int modify( char * filename, char id[20], user neww);
+int deleteu(char * filename, char id[20]);
+user find_user(char * filename, char id[20]);
 
 #endif // POINT_H_INCLUDED
 
