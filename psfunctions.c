@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 #include"functions.h"
 int add(char * filename,Pollingstation p)
 {
@@ -13,7 +14,7 @@ int add(char * filename,Pollingstation p)
             else return 0 ;
 
 }
-int modify (char * filename ,int id , Pollingstation nouv)
+int modify (char * filename ,char id[15] , Pollingstation nouv)
 {
 
 
@@ -23,9 +24,9 @@ int modify (char * filename ,int id , Pollingstation nouv)
     FILE * f2=fopen("nouv.txt","w");
     if (f!=NULL && f2!=NULL)
     {
-         while(fscanf(f,"%s %d %d %d %d %d %d %d \n",p.id,p.MUNICIPALITYPS,p.opt.hours,p.opt.mins,p.ct.hours,p.ct.mins,p.Nrooms,p.capacity)!=EOF)
+         while(fscanf(f,"%s %d %d %d %d %d %d %d \n",p.id,&p.MUNICIPALITYPS,&p.opt.hours,&p.opt.mins,&p.ct.hours,&p.ct.mins,&p.Nrooms,&p.capacity)!=EOF)
            {
-            if(p.id== id)
+            if(strcmp(p.id,id)==0)
             {
                 fprintf(f2,"%s %d %d %d %d %d %d %d \n",p.id,p.MUNICIPALITYPS,p.opt.hours,p.opt.mins,p.ct.hours,p.ct.mins,p.Nrooms,p.capacity);
                 tr=1;
@@ -42,7 +43,7 @@ int modify (char * filename ,int id , Pollingstation nouv)
     return tr;
 
 }
-int Delete(char * filename, int id)
+int Deleteps(char * filename, char id[15])
 {
     int tr=0;
     Pollingstation p;
@@ -50,9 +51,9 @@ int Delete(char * filename, int id)
     FILE * f2=fopen("nouv.txt", "w");
     if(f!=NULL && f2!=NULL)
     {
-        while(fscanf(f,"%s %d %d %d %d %d %d %d \n",p.id,p.MUNICIPALITYPS,p.opt.hours,p.opt.mins,p.ct.hours,p.ct.mins,p.Nrooms,p.capacity)!=EOF)
+        while(fscanf(f,"%s %d %d %d %d %d %d %d \n",p.id,&p.MUNICIPALITYPS,&p.opt.hours,&p.opt.mins,&p.ct.hours,&p.ct.mins,&p.Nrooms,&p.capacity)!=EOF)
         {
-            if(p.id== id)
+            if(strcmp(p.id,id)==0)
                 tr=1;
             else
                 fprintf(f2,"%s %d %d %d %d %d %d %d \n",p.id,p.MUNICIPALITYPS,p.opt.hours,p.opt.mins,p.ct.hours,p.ct.mins,p.Nrooms,p.capacity);
@@ -65,22 +66,22 @@ int Delete(char * filename, int id)
     return tr;
 
 }
-Pollingstation search(char * filename, int id)
+Pollingstation search(char * filename, char id[15])
 {
     Pollingstation p;
     int tr;
     FILE * f=fopen(filename, "r");
     if(f!=NULL)
     {
-        while(tr==0&& fscanf(f,"%s %d %d %d %d %d %d %d \n",p.id,p.MUNICIPALITYPS,p.opt.hours,p.opt.mins,p.ct.hours,p.ct.mins,p.Nrooms,p.capacity)!=EOF)
+        while(tr==0&& fscanf(f,"%s %d %d %d %d %d %d %d \n",p.id,&p.MUNICIPALITYPS,&p.opt.hours,&p.opt.mins,&p.ct.hours,&p.ct.mins,&p.Nrooms,&p.capacity)!=EOF)
         {
-            if(p.id== id)
+            if(strcmp(p.id,id)==0)
                 tr=1;
         }
     }
     fclose(f);
     if(tr==0)
-        p.id[0]="-1";
+        p.id[0]="N";
     return p;
 
 }
