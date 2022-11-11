@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<string.h>
 #include"functions.h"
 int main()
 {Pollingstation p1={{8,00},{17,00},"123",4,200};
@@ -14,7 +15,7 @@ if (x==1)
  printf("\n Modification done succesfcully !");
 else printf("\ Delete failed !");
 p3=search("pollingstation.txt","123");
-if (p3.id==-1)
+if (strcmp(p3.id,"N"))
     printf("not found");
 return 0;
 
