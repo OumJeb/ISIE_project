@@ -1,0 +1,6 @@
+prog:claimsfuctions.o main.o
+	gcc claimsfunctions.o main.o -o prog
+main.o:main.c
+	gcc -c main.c
+claimsfunctions.o:claimsfunctions.c
+	gcc -c claimsfunctions.c
