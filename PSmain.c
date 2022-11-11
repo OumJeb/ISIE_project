@@ -13,7 +13,7 @@ else printf("\n error in adding the polling station");
 x=modify("Pollingstation.txt","1",p1);
 if (x==1)
  printf("\n Modification done succesfcully !");
-else printf("\ Delete failed !");
+else printf("\n Delete failed !");
 p3=search("pollingstation.txt","123");
 if (strcmp(p3.id,"N"))
     printf("not found");
