@@ -9,7 +9,7 @@
     FILE * f=fopen(filename, "a");
     if(f!=NULL)
     {
-        fprintf(f,"%s %d %d %d %d %d/%d/%d %d %s\n",cl.id,cl.type1,cl.type2,cl.type3,cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text);
+        fprintf(f,"%s %d %d %d %d %d %d %d %d %s\n",cl.id,cl.type[0],cl.type[1],cl.type[2],cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text);
         fclose(f);
         return 1;
     }
@@ -23,16 +23,16 @@ int modify_claims( char * filename, char id[20],Claims cnew)
     FILE * f2=fopen("new.txt", "w");
     if (f!=NULL && f2!=NULL)
     {
-        while(fscanf(f,"%s %d %d %d %d %d/%d/%d %d %s\n",cl.id,&cl.type1,&cl.type2,&cl.type3,&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)
+        while(fscanf(f,"%s %d %d %d %d %d %d %d %d %s\n",cl.id,&cl.type[0],&cl.type[1],&cl.type[2],&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)
         {
             if(strcmp(cl.id,id)==0)
             {
-                fprintf(f2,"%s %d %d %d %d %d/%d/%d %d %s\n",cnew.id,cnew.type1,cnew.type2,cnew.type3,cnew.electoral_list,cnew.date.day,cnew.date.month,cnew.date.year,cnew.municipality,cnew.text);
+                fprintf(f2,"%s %d %d %d %d %d %d %d %d %s\n",cnew.id,cnew.type[0],cnew.type[1],cnew.type[2],cnew.electoral_list,cnew.date.day,cnew.date.month,cnew.date.year,cnew.municipality,cnew.text);
                 v=1;
             }
             else
             {
-                fprintf(f2,"%s %d %d %d %d %d/%d/%d %d %s\n",cl.id,cl.type1,cl.type2,cl.type3,cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text);
+                fprintf(f2,"%s %d %d %d %d %d %d %d %d %s\n",cl.id,cl.type[0],cl.type[1],cl.type[2],cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text);
             }
 
         }
@@ -53,12 +53,12 @@ int delete_claims (char * filename, char id[20])
     FILE * f2=fopen("new.txt","w");
     if(f!=NULL && f2!=NULL)
     {
-        while(fscanf(f,"%s %d %d %d %d %d/%d/%d %d %s\n",cl.id,&cl.type1,&cl.type2,&cl.type3,&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)
+        while(fscanf(f,"%s %d %d %d %d %d %d %d %d %s\n",cl.id,&cl.type[0],&cl.type[1],&cl.type[2],&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)
         {
             if (strcmp(cl.id,id)==0)
                 v=1;
             else
-                fprintf(f2,"%s %d %d %d %d %d/%d/%d %d %s\n",cl.id,cl.type1,cl.type2,cl.type3,cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text);
+                fprintf(f2,"%s %d %d %d %d %d %d %d %d %s\n",cl.id,cl.type[0],cl.type[1],cl.type[2],cl.electoral_list,cl.date.day,cl.date.month,cl.date.year,cl.municipality,cl.text);
         }
     }
     fclose(f);
@@ -70,11 +70,11 @@ int delete_claims (char * filename, char id[20])
 Claims search_claims(char * filename, char id[20])
 {
     Claims cl;
-    int v;int i;
+    int v;
     FILE * f=fopen(filename,"r");
     if(f!=NULL)
     {
-        while((fscanf(f,"%s %d %d %d %d %d/%d/%d %d %s\n",cl.id,&cl.type1,&cl.type2,&cl.type3,&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)&& v==0)
+        while((fscanf(f,"%s %d %d %d %d %d %d %d %d %s\n",cl.id,&cl.type[0],&cl.type[0],&cl.type[0],&cl.electoral_list,&cl.date.day,&cl.date.month,&cl.date.year,&cl.municipality,cl.text)!=EOF)&& v==0)
         {
               if(strcmp(cl.id,id)==0)
                     v=1;

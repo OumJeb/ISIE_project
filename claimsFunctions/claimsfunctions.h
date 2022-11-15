@@ -7,9 +7,7 @@ typedef struct {
 }Date;
 typedef struct{
     char id[50];
-    int type1;
-    int type2;
-     int type3;
+    int type[3];
     int electoral_list;
     Date date ;
     int municipality;
