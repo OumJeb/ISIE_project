@@ -1,11 +1,30 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "functelections.h"
 
 int main()
 {
-    election e1={"1",11,11,2022,1,2,1,1,0},e2={"2",11,10,2022,1,2,1,0,1};
-    int x=add_election("elections.txt",e1);
+    election e4, e1={"1",11,11,2022,1,2,1,1,0},e2={"2",11,10,2022,1,2,1,0,1};
+    printf("id?\n");
+    scanf("%s",e4.elecid);
+    printf("date?\n");
+    scanf("%d %d %d",&e4.date.d,&e4.date.m,&e4.date.y);
+    printf("municip?\n");
+    scanf("%d",&e4.municip);
+    printf("numhab?\n");
+    scanf("%d",&e4.numhab);
+    printf("numps?\n");
+    scanf("%d",&e4.numps);
+    printf("municipal?\n");
+    scanf("%d",&e4.municipal);
+    printf("legislative?\n");
+    scanf("%d",&e4.legislative);
+    int x=add_election("elections.txt",e4);
+    if(x==1)
+        printf("\n add successful");
+    else printf("\n error adding ");
+    x=add_election("elections.txt",e1);
     if(x==1)
         printf("\n add successful");
     else printf("\n error adding ");
@@ -13,7 +32,7 @@ int main()
     if(x==1)
         printf("\n modification successful");
     else printf("\n error modifying");
-    x=delete_election("elections.txt","1");
+    x=delete_election("elections.txt","2");
     if(x==1)
         printf("\n delete successful");
     else printf("\n error deleting");
@@ -21,6 +40,7 @@ int main()
     e3=search_election("elections.txt","3");
     if(e3.elecid[0]=='N')
         printf("\n not found");
+    else printf("\n found");
 
 
     return 0;

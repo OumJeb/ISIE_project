@@ -1,0 +1,37 @@
+#ifndef HEADERPROJECT_H_INCLUDED
+#define HEADERPROJECT_H_INCLUDED
+typedef struct {
+     int month;
+     int day;
+     int year;
+}Date;
+typedef struct{
+    int id;
+    int type[3];
+    int electoral_list;
+    Date date ;
+    int municipality;
+    char text[200];
+}Claims;
+
+#ifndef HEADERPROJECT_H_INCLUDED
+#define HEADERPROJECT_H_INCLUDED
+typedef struct {
+     int month;
+     int day;
+     int year;
+}Date;
+typedef struct{
+    int id;
+    int type[3];
+    int electoral_list;
+    Date date ;
+    int municipality;
+    char text[200];
+}Claims;
+
+
+
+#endif // HEADERPROJECT_H_INCLUDED
+
+#endif // HEADERPROJECT_H_INCLUDED

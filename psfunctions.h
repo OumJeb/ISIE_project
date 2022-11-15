@@ -1,6 +1,6 @@
 #ifndef FUNCTIONS_H_INCLUDED
 #define FUNCTIONS_H_INCLUDED
-#include"functions.h"
+
 typedef struct{
 int hours ;
 int mins; }time;
@@ -13,9 +13,9 @@ int capacity ;
 
 }Pollingstation;
 int add(char *filename, Pollingstation p);
-int modify( char *filename, int a, Pollingstation p );
-int delete(char *filename, int );
-Pollingstation search(char *filename, int);
+int modify( char *filename, char id[15], Pollingstation p );
+int Deleteps(char *filename, char id[15] );
+Pollingstation search(char *filename, char id[15]);
 
 
 

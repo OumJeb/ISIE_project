@@ -17,7 +17,11 @@ typedef struct user
     int atype;
 } user;
 
+<<<<<<< HEAD
 int add(char * filename, user u );
+=======
+int add(char * filename, user neww);
+>>>>>>> 312fd1c1da022f83ea65d05bf6e3455faac77fc2
 int modify( char * filename, char id[20], user neww);
 int deleteu(char * filename, char id[20]);
 user find_user(char * filename, char id[20]);
