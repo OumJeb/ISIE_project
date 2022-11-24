@@ -8,7 +8,7 @@ typedef struct {
 typedef struct{
     char id[50];
     int type[3];
-    int electoral_list;
+    char electoral_list[20];
     Date date ;
     int municipality;
     char text[200];
