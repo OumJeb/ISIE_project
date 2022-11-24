@@ -2,22 +2,26 @@
 #define POINT_H_INCLUDED
 #include <stdio.h>
 typedef struct {
-     int month;
      int day;
+     int month;
      int year;
-}Date;
+}date;
 typedef struct user
 {
     char name[20];
     char id[20];
-    Date date;
-    int gen[20];
-    int mun[20];
+    date date;
+    int gen;
+    int mun;
     char pw[20];
-    int atype[10];
+    int atype;
 } user;
 
+<<<<<<< HEAD
+int add(char * filename, user u );
+=======
 int add(char * filename, user neww);
+>>>>>>> 312fd1c1da022f83ea65d05bf6e3455faac77fc2
 int modify( char * filename, char id[20], user neww);
 int deleteu(char * filename, char id[20]);
 user find_user(char * filename, char id[20]);

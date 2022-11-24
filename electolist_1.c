@@ -1,8 +1,9 @@
 #include"electolist_1.h"
 #include<stdio.h>
-int add_electoral(electoral e, char * liselect )
+"include<string>
+int add_electoral(char * filename ,electoral e )
 {
-    FILE * f=fopen(liselect, "a");
+    FILE * f=fopen(filename, "a");
     if(f!=NULL)
     {
         fprintf(f,"%s %d %s %s %s %s %s %s %d %d %d \n",e.id_liste,e.municipality,e.orientation,e.id_HOL,e.id1,e.id2,e.id3,e.da.d,e.da.m,e.da.y);
@@ -12,18 +13,18 @@ int add_electoral(electoral e, char * liselect )
     else return 0;
 }
 
-int modify_electoral(int id_HOL, electoral new_e, char * liselect)
+int modify_electoral(char * filename, char id1[100],electoral nw )
 {
     electoral e;
-    FILE * f=fopen(liselect, "r");
+    FILE * f=fopen(filename, "r");
     FILE * f2 =fopen("liselect.txt", "w");
     if(f==NULL || f2==NULL)
         return 0;
     else
     {
-        while(fscanf(f,"%s %d %s %s %s %s %s %s %d %d %d \n",&e.id_liste,&e.municipality,e.orientation,&e.id_HOL,&e.id1,&e.id2,&e.id3,&e.da.d,&e.da.m,&e.da.y)!=EOF)
+        while(fscanf(f,"%s %d %s %s %s %s %s %s %d %d %d \n",e.id_liste,&e.municipality,e.orientation,e.id_HOL,e.id1,e.id2,e.id3,&e.da.d,&e.da.m,&e.da.y)!=EOF)
         {
-            if(e.id_HOL!=id_HOL)
+            if(e.id_liste==id1)
                 fprintf(f2,"%s %d %s %s %s %s %s %s %d %d %d\n",e.id_liste,e.municipality e.orientation,e.id_HOL,e.id1,e.id2,e.id3,e.da.d,e.da.m,e.da.y);
             else
 
@@ -32,23 +33,23 @@ int modify_electoral(int id_HOL, electoral new_e, char * liselect)
         }
         fclose(f);
         fclose(f2);
-        remove(liselect);
+        remove(filename);
         rename("liselect.txt", liselect);
         return 1;
     }
 
 }
 
-int delete_electoral(int id_liste, char * liselect)
+int delete_electoral(char * filename ,char id_liste[100] ,electoral e)
 {
-    electoral e;
-    FILE * f=fopen(liselect, "r");
+    
+    FILE * f=fopen(filename, "r");
     FILE * f2 =fopen("liselect.txt", "w+");
     if(f==NULL || f2==NULL)
         return 0;
     else
     {
-        while(fscanf(f,"%s %d %s %s %s %s %s %s %d %d %d\n",&e.id_liste,&e.municipality ,e.orientation,&e.id_HOL,&e.id1,&e.id2,&e.id3,&e.da.d,&e.da.m,&e.da.y)!=EOF)
+        while(fscanf(f,"%s %d %s %s %s %s %s %s %d %d %d\n",e.id_liste,&e.municipality ,e.orientation,e.id_HOL,e.id1,e.id2,e.id3,&e.da.d,&e.da.m,&e.da.y)!=EOF)
 
         {
             if(e.id_liste!=id_liste)
@@ -57,7 +58,7 @@ int delete_electoral(int id_liste, char * liselect)
         }
         fclose(f);
         fclose(f2);
-        remove(liselect);
+        remove(filename);
         rename("liselect.txt", liselect);
         return 1;
     }

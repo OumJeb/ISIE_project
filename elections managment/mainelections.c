@@ -5,7 +5,7 @@
 
 int main()
 {
-    election e4, e1={"1",11,11,2022,1,2,1,1,0},e2={"2",11,10,2022,1,2,1,0,1};
+    election e4, e1={"1",11,11,2022,1,2,1,1},e2={"2",11,10,2022,1,2,1,0};
     printf("id?\n");
     scanf("%s",e4.elecid);
     printf("date?\n");
@@ -16,10 +16,9 @@ int main()
     scanf("%d",&e4.numhab);
     printf("numps?\n");
     scanf("%d",&e4.numps);
-    printf("municipal?\n");
-    scanf("%d",&e4.municipal);
-    printf("legislative?\n");
-    scanf("%d",&e4.legislative);
+    printf("electype?\n");
+    scanf("%d",&e4.electype);
+
     int x=add_election("elections.txt",e4);
     if(x==1)
         printf("\n add successful");
@@ -37,10 +36,10 @@ int main()
         printf("\n delete successful");
     else printf("\n error deleting");
     election e3;
-    e3=search_election("elections.txt","3");
+    e3=search_election("elections.txt","1");
     if(e3.elecid[0]=='N')
-        printf("\n not found");
-    else printf("\n found");
+        printf("\nnot found\n");
+    else printf("\nfound\n");
 
 
     return 0;
