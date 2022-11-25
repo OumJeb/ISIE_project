@@ -1,5 +1,5 @@
-#ifndef HEADERS_H_INCLUDED
-#define HEADERS_H_INCLUDED
+#ifndef ELECTOLIST_1_H_INCLUDED
+#define ELECTOLIST_1_H_INCLUDED
 
 
 typedef struct {
@@ -21,4 +21,4 @@ int add_electoral(electoral e, char * liselect );
 int modify_electoral(int id_HOL, electoral new_e, char * liselect);
 int delete_electoral(int id_liste, char * liselect);
 electoral search_eletoral(int id_liste, char * liselect);
-#endif // HEADERS_H_INCLUDED
+#endif // ELECTOLIST_1_H_INCLUDED
