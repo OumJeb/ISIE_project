@@ -14,7 +14,7 @@ int add(char * filename,Pollingstation p)
             else return 0 ;
 
 }
-int modifyps(char * filename ,char id[15] , Pollingstation nouv)
+int modifyps (char * filename ,char id[15] , Pollingstation nouv)
 {
 
 
@@ -50,6 +50,7 @@ printf("file opening probl\n");
     return tr;
 
 }
+
 int Delete(char * filename, char id[15])
 {
     int tr=0;

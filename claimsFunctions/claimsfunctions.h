@@ -6,7 +6,7 @@ typedef struct {
      int year;
 }Date;
 typedef struct{
-    int id;
+    char id[50];
     int type[3];
     int electoral_list;
     Date date ;
@@ -15,8 +15,8 @@ typedef struct{
 }Claims;
 
 
-int add_claims(char* file name,claims cl);
-int modify_claims( char * filename, char id[20],claims cnew);
+int add_claims(char* filename,Claims cl);
+int modify_claims( char * filename, char id[20],Claims cnew);
 int delete_claims (char * filename, char id[20]);
-election search_claims(char * filename, char id[20]);
+Claims  search_claims(char * filename, char id[20]);
 #endif // HEADERPROJECT_H_INCLUDED
