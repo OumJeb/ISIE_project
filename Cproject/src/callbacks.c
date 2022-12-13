@@ -276,7 +276,7 @@ on_treeview_displayelecdelete_row_activated
 
 
 
-confirmdelete=0;
+int confirmdelete=0;
 void
 on_button_deleteelec_clicked           (GtkButton       *button,
                                         gpointer         user_data)
