@@ -20,6 +20,7 @@ int verify_id(char * filename,char id[20]);
 date stringtodate(char elecdate[20]);
 void display_election(GtkWidget *list);
 void empty(GtkWidget *list);
+void search_display(GtkWidget *list,char id[20],date da,char mun[20]);
 #endif // FUNCTELECTIONS_H_INCLUDED
 
 

@@ -59,10 +59,36 @@ on_treeview_displayelecdelete_row_activated
 
 
 void
-on_button_deleteelec_clicked           (GtkButton       *button,
+on_button_deleteelec_clicked           (GtkWidget      *button,
+                                        gpointer         user_data);
+
+
+
+
+void
+on_checkbutton_conelecdelete_toggled   (GtkToggleButton *togglebutton,
                                         gpointer         user_data);
 
 void
-on_checkbutton_confirmelecdelete_toggled
-                                        (GtkToggleButton *togglebutton,
+on_button_SIGNIN_clicked               (GtkWidget       *button,
+                                        gpointer         user_data);
+
+void
+on_button_backelec_clicked             (GtkWidget       *button,
+                                        gpointer         user_data);
+
+void
+on_button_searchelec_clicked           (GtkWidget      *button,
+                                        gpointer         user_data);
+
+void
+on_checkbutton_idsearch_toggled        (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);
+
+void
+on_checkbutton_datesearch_toggled      (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);
+
+void
+on_checkbutton_munsearch_toggled       (GtkToggleButton *togglebutton,
                                         gpointer         user_data);

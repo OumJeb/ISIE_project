@@ -128,13 +128,13 @@ date stringtodate(char elecdate[20])
 
      j=0;
      for(i=2;i<5;i++){if (elecdate[i]!='/'){m[j]=elecdate[i];j++;}}
-      m[j]="n";
+      m[j]='n';
       date.m=atoi(m);
 
 
       j=0;
      for(i=5;i<10;i++){if (elecdate[i]!='/'){y[j]=elecdate[i];j++;}}
-      y[j]="n";
+      y[j]='n';
       date.y=atoi(y);
 	return date;
 
@@ -182,7 +182,7 @@ void display_election(GtkWidget *list)
       
 	FILE *f;
 
-	store=gtk_tree_view_get_model(list);
+	store=gtk_tree_view_get_model(&list);
         
 	if(store==NULL)
 	{	
@@ -252,7 +252,7 @@ void empty(GtkWidget *list)
 	char msg[20];
 	store=NULL;
 	FILE *f;
-	store=gtk_tree_view_get_model(list);
+	store=gtk_tree_view_get_model(&list);
 	if(store==NULL)
 	{	renderer=gtk_cell_renderer_text_new();
 		column=gtk_tree_view_column_new_with_attributes("Election Id",renderer, "text",ELECID,NULL);
@@ -282,9 +282,103 @@ void empty(GtkWidget *list)
 store=gtk_list_store_new(COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
 		
 gtk_list_store_append(store,&iter);
-		gtk_tree_view_set_model(GTK_TREE_VIEW(list),GTK_TREE_MODEL(store));
+gtk_tree_view_set_model(GTK_TREE_VIEW(list),GTK_TREE_MODEL(store));
 }
 
 
+void search_display(GtkWidget *list,char id[20],date da,char mun[20])
+{
+	GtkCellRenderer *renderer;
+	
+	GtkTreeViewColumn *column;
 
+	GtkTreeIter iter;
+
+	GtkListStore *store;
+        
+ 		 		 
+	char elecid[20];
+	date daelec;
+	
+	char elecdate[20];
+	char municip[20];
+	char numhab[50];
+	char numps[50];
+	int electype;
+	char msg[20];
+	store=NULL;
+        
+	FILE *f;
+
+	store=gtk_tree_view_get_model(&list);
+        
+	if(store==NULL)
+	{	
+		renderer=gtk_cell_renderer_text_new();
+		column=gtk_tree_view_column_new_with_attributes("Election Id",renderer, "text",ELECID,NULL);
+		gtk_tree_view_append_column(GTK_TREE_VIEW(list),column);
+
+		renderer=gtk_cell_renderer_text_new();
+		column=gtk_tree_view_column_new_with_attributes("Date",renderer, "text",DATE,NULL);
+		gtk_tree_view_append_column(GTK_TREE_VIEW(list),column);
+
+		renderer=gtk_cell_renderer_text_new();
+		column=gtk_tree_view_column_new_with_attributes("Municipality",renderer, "text",MUNICIPALITY,NULL);
+		gtk_tree_view_append_column(GTK_TREE_VIEW(list),column);
+
+		renderer=gtk_cell_renderer_text_new();
+		column=gtk_tree_view_column_new_with_attributes("Number of habitants",renderer, "text",NUMHAB,NULL);
+		gtk_tree_view_append_column(GTK_TREE_VIEW(list),column);
+
+		renderer=gtk_cell_renderer_text_new();
+		column=gtk_tree_view_column_new_with_attributes("number of PS",renderer, "text",NUMPS,NULL);
+		gtk_tree_view_append_column(GTK_TREE_VIEW(list),column);
+
+		renderer=gtk_cell_renderer_text_new();
+		column=gtk_tree_view_column_new_with_attributes("Election Type",renderer, "text",ELECTYPE,NULL);
+		gtk_tree_view_append_column(GTK_TREE_VIEW(list),column);
+}
+		store=gtk_list_store_new(COLUMNS,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING,G_TYPE_STRING);
+f=fopen("election.txt","r");
+if(f==NULL)
+{
+	return;
+}
+else
+{
+	f=fopen("election.txt","a+");
+	while(fscanf(f,"%s %d %d %d %s %s %s %d",elecid,&daelec.d,&daelec.m,&daelec.y,municip,numhab,numps,&electype)!=EOF)
+	{  
+	
+        if(strlen(id)!=0 && strcmp(elecid,id)==0)
+	{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
+	}
+	if(da.d!=0 && da.m!=0 && da.y!=0)
+	{
+		if(da.d==daelec.d && da.m==daelec.m && da.y==daelec.y )
+		{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
+		}
+        }
+        if(strlen(mun)!=0 && strcmp(municip,mun)==0)
+	{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
+	}
+
+	}
+fclose(f);
+gtk_tree_view_set_model(GTK_TREE_VIEW(list),GTK_TREE_MODEL(store));
+g_object_unref(store);
+}
+}
 

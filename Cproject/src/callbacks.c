@@ -8,6 +8,9 @@
 #include "interface.h"
 #include "support.h"
 
+
+
+//////////////////////////////////////OUMAYMA/////////////////////////////////////////////////
 int electype=1;
 
 void
@@ -239,7 +242,7 @@ on_button_displaydelete_clicked        (GtkWidget       *button,
 
 
 
-
+int confirmdelete=0;
 char id[20]="";
 void
 on_treeview_displayelecdelete_row_activated
@@ -260,7 +263,7 @@ on_treeview_displayelecdelete_row_activated
 	char *numps;
 	char *msg;
 	election E;	
-		gtk_tree_model_get(GTK_LIST_STORE(model),&iter,0,&elecid);//,DATE,&elecdate,MUNICIPALITY,&municip,NUMHAB,&numhab,NUMPS,&numps,ELECTYPE,&msg,-1);
+		gtk_tree_model_get(GTK_LIST_STORE(model),&iter,0,&elecid,-1);//,DATE,&elecdate,MUNICIPALITY,&municip,NUMHAB,&numhab,NUMPS,&numps,ELECTYPE,&msg,-1);
           strcpy(E.elecid,elecid);
           /*E.date=stringtodate(elecdate);
 	  strcpy(E.municip,municip);
@@ -269,31 +272,148 @@ on_treeview_displayelecdelete_row_activated
           E.electype=reverse_election_type(msg);*/
 	  strcpy(id,E.elecid);
 	  int n;
-   	  n=delete_election ("election.txt", E.elecid);
-	  display_election(treeview);	
+	if(confirmdelete==1)
+   	  {n=delete_election ("election.txt", E.elecid);
+	  //display_election(treeview);
+          }	
 	}
 }
 
 
 
-int confirmdelete=0;
+
 void
-on_button_deleteelec_clicked           (GtkButton       *button,
+on_button_deleteelec_clicked           (GtkWidget       *button,
                                         gpointer         user_data)
 {
    GtkWidget *treeview;
    treeview=lookup_widget(button,"treeview_displayelecdelete");
-   empty(treeview);
-   display_election(treeview);
+   
+   if(confirmdelete==1)
+   {empty(treeview);
+    display_election(treeview);
+    confirmdelete=0;}
 }
 
 
+
+
+
+
+
 void
-on_checkbutton_confirmelecdelete_toggled
-                                        (GtkToggleButton *togglebutton,
+on_checkbutton_conelecdelete_toggled   (GtkToggleButton *togglebutton,
                                         gpointer         user_data)
 {
 	if(gtk_toggle_button_get_active(togglebutton))
        {confirmdelete=1;}
 }
+
+
+void
+on_button_SIGNIN_clicked               (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+
+}
+
+
+void
+on_button_backelec_clicked             (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+  GtkWidget *window_ADMIN;
+  GtkWidget *window_statsoum;
+  window_statsoum = lookup_widget(button, "window_statsoum");
+  gtk_widget_hide (window_ADMIN);
+  window_ADMIN = create_window_ADMIN();
+  gtk_widget_show (window_ADMIN);
+}
+
+int criteria[3]={0,0,0};
+void
+on_button_searchelec_clicked           (GtkWidget      *button,
+                                        gpointer         user_data)
+{
+	GtkWidget *ID,*DAY,*MONTH,*YEAR,*MUN;
+	GtkWidget *treeview;
+	treeview=lookup_widget(button,"treeview_displayelec");
+        ID=lookup_widget(button,"entry_displayelecid");
+        DAY=lookup_widget(button,"spinbutton_searchday");
+   	MONTH=lookup_widget(button,"spinbutton_searchmonth");
+   	YEAR=lookup_widget(button,"spinbutton_searchyear");
+        MUN=lookup_widget(button,"entry_displaymun");
+	char id[20]="";date da;char mun[20]="";da.d=0;da.m=0;da.y=0;
+
+	if(criteria[0]==1 && criteria[1]==0 && criteria[2]==0)
+	{strcpy(id,gtk_entry_get_text(GTK_ENTRY(ID)));criteria[0]=0;}
+
+	if(criteria[1]==1 && criteria[0]==0 && criteria[2]==0)
+      	{da.d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(DAY));
+      	 da.m=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(MONTH));
+      	 da.y=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(YEAR));criteria[1]=0;}
+
+	if(criteria[2]==1 && criteria[1]==0 && criteria[0]==0)
+	{strcpy(mun,gtk_entry_get_text(GTK_ENTRY(MUN)));criteria[2]=0;}
+
+        /*if(criteria[0]==1 && criteria[1]==1 && criteria[2]==0)
+	{strcpy(id,gtk_entry_get_text(GTK_ENTRY(ID)));
+         da.d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(DAY));
+      	 da.m=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(MONTH));
+      	 da.y=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(YEAR));criteria[1]=0;
+         criteria[0]=0;}
+
+	if(criteria[0]==1 && criteria[1]==0 && criteria[2]==1)
+	{strcpy(id,gtk_entry_get_text(GTK_ENTRY(ID)));
+         strcpy(mun,gtk_entry_get_text(GTK_ENTRY(MUN)));
+         criteria[2]=0;criteria[0]=0;}
+
+	if(criteria[0]==0 && criteria[1]==1 && criteria[2]==1)
+	{da.d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(DAY));
+      	 da.m=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(MONTH));
+      	 da.y=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(YEAR));
+         strcpy(mun,gtk_entry_get_text(GTK_ENTRY(MUN)));
+         criteria[1]=0;criteria[2]=0;}
+
+	if(criteria[0]==1 && criteria[1]==1 && criteria[2]==1)
+	{strcpy(id,gtk_entry_get_text(GTK_ENTRY(ID)));
+         da.d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(DAY));
+      	 da.m=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(MONTH));
+      	 da.y=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(YEAR));
+	 strcpy(mun,gtk_entry_get_text(GTK_ENTRY(MUN)));
+         criteria[0]==0;criteria[1]==0;criteria[2]==0;}*/
+
+	search_display(treeview,id,da,mun);
+        
+
+}
+
+
+void
+on_checkbutton_idsearch_toggled        (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+  if(gtk_toggle_button_get_active(togglebutton))
+       {criteria[0]=1;}
+}
+
+
+void
+on_checkbutton_datesearch_toggled      (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+  if(gtk_toggle_button_get_active(togglebutton))
+       {criteria[1]=1;}
+}
+
+
+void
+on_checkbutton_munsearch_toggled       (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+  if(gtk_toggle_button_get_active(togglebutton))
+       {criteria[2]=1;}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////
 

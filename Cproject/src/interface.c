@@ -84,6 +84,10 @@ create_window_authentification (void)
   gtk_fixed_put (GTK_FIXED (fixed_authentification), button_SIGNIN, 352, 360);
   gtk_widget_set_size_request (button_SIGNIN, 81, 29);
 
+  g_signal_connect ((gpointer) button_SIGNIN, "clicked",
+                    G_CALLBACK (on_button_SIGNIN_clicked),
+                    NULL);
+
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (window_authentification, window_authentification, "window_authentification");
   GLADE_HOOKUP_OBJECT (window_authentification, fixed_authentification, "fixed_authentification");
@@ -376,32 +380,44 @@ create_window_ADMIN (void)
   GtkWidget *fixed_deleteelection;
   GtkWidget *treeview_displayelecdelete;
   GtkWidget *errlabel_deleteelec;
-  GtkWidget *label_deleteelecdef;
-  GtkWidget *button_displaydelete;
   GtkWidget *button_deleteelec;
   GtkWidget *alignment7;
   GtkWidget *hbox7;
   GtkWidget *image22;
   GtkWidget *label89;
-  GtkWidget *checkbutton_confirmelecdelete;
+  GtkWidget *label_deleteelecdef;
+  GtkWidget *checkbutton_conelecdelete;
+  GtkWidget *button_displaydelete;
   GtkWidget *labelDELETE2;
   GtkWidget *fixed_displayelection;
   GtkWidget *entry_displayelecid;
   GtkWidget *treeview_displayelec;
   GtkWidget *label79;
-  GtkWidget *label_elecdisplaydef;
   GtkWidget *image4;
-  GtkWidget *button_displayelecid;
-  GtkWidget *alignment20;
-  GtkWidget *hbox20;
-  GtkWidget *image35;
-  GtkWidget *label102;
   GtkWidget *label_displayelecid;
+  GtkWidget *label_datedisplay;
+  GtkWidget *label_mundisplay;
+  GtkWidget *entry_displaymun;
+  GtkWidget *label_elecdisplaydef;
   GtkWidget *button_stats;
   GtkWidget *alignment21;
   GtkWidget *hbox21;
   GtkWidget *image36;
   GtkWidget *label103;
+  GtkWidget *button_searchelec;
+  GtkWidget *alignment20;
+  GtkWidget *hbox20;
+  GtkWidget *image35;
+  GtkWidget *label102;
+  GtkObject *spinbutton_searchday_adj;
+  GtkWidget *spinbutton_searchday;
+  GtkObject *spinbutton_searchmonth_adj;
+  GtkWidget *spinbutton_searchmonth;
+  GtkObject *spinbutton_searchyear_adj;
+  GtkWidget *spinbutton_searchyear;
+  GtkWidget *checkbutton_idsearch;
+  GtkWidget *checkbutton_datesearch;
+  GtkWidget *checkbutton_munsearch;
   GtkWidget *labelDISPLAY2;
   GtkWidget *label_electionmanagnment;
   GtkWidget *notebook_pollingstation;
@@ -1820,24 +1836,13 @@ create_window_ADMIN (void)
 
   treeview_displayelecdelete = gtk_tree_view_new ();
   gtk_widget_show (treeview_displayelecdelete);
-  gtk_fixed_put (GTK_FIXED (fixed_deleteelection), treeview_displayelecdelete, 0, 64);
-  gtk_widget_set_size_request (treeview_displayelecdelete, 736, 264);
+  gtk_fixed_put (GTK_FIXED (fixed_deleteelection), treeview_displayelecdelete, 56, 64);
+  gtk_widget_set_size_request (treeview_displayelecdelete, 592, 272);
 
   errlabel_deleteelec = gtk_label_new ("");
   gtk_widget_show (errlabel_deleteelec);
   gtk_fixed_put (GTK_FIXED (fixed_deleteelection), errlabel_deleteelec, 584, 344);
   gtk_widget_set_size_request (errlabel_deleteelec, 88, 16);
-
-  label_deleteelecdef = gtk_label_new_with_mnemonic (_("<span foreground=\"red\"><b>Delete Election</b></span>"));
-  gtk_widget_show (label_deleteelecdef);
-  gtk_fixed_put (GTK_FIXED (fixed_deleteelection), label_deleteelecdef, 128, 40);
-  gtk_widget_set_size_request (label_deleteelecdef, 130, 17);
-  gtk_label_set_use_markup (GTK_LABEL (label_deleteelecdef), TRUE);
-
-  button_displaydelete = gtk_button_new_with_mnemonic (_("display"));
-  gtk_widget_show (button_displaydelete);
-  gtk_fixed_put (GTK_FIXED (fixed_deleteelection), button_displaydelete, 24, 344);
-  gtk_widget_set_size_request (button_displaydelete, 66, 29);
 
   button_deleteelec = gtk_button_new ();
   gtk_widget_show (button_deleteelec);
@@ -1860,10 +1865,21 @@ create_window_ADMIN (void)
   gtk_widget_show (label89);
   gtk_box_pack_start (GTK_BOX (hbox7), label89, FALSE, FALSE, 0);
 
-  checkbutton_confirmelecdelete = gtk_check_button_new_with_mnemonic (_("Confirm"));
-  gtk_widget_show (checkbutton_confirmelecdelete);
-  gtk_fixed_put (GTK_FIXED (fixed_deleteelection), checkbutton_confirmelecdelete, 112, 392);
-  gtk_widget_set_size_request (checkbutton_confirmelecdelete, 118, 24);
+  label_deleteelecdef = gtk_label_new_with_mnemonic (_("<span foreground=\"red\"><b>Delete Election</b></span>"));
+  gtk_widget_show (label_deleteelecdef);
+  gtk_fixed_put (GTK_FIXED (fixed_deleteelection), label_deleteelecdef, 240, 40);
+  gtk_widget_set_size_request (label_deleteelecdef, 130, 17);
+  gtk_label_set_use_markup (GTK_LABEL (label_deleteelecdef), TRUE);
+
+  checkbutton_conelecdelete = gtk_check_button_new_with_mnemonic (_("Confirm"));
+  gtk_widget_show (checkbutton_conelecdelete);
+  gtk_fixed_put (GTK_FIXED (fixed_deleteelection), checkbutton_conelecdelete, 296, 344);
+  gtk_widget_set_size_request (checkbutton_conelecdelete, 118, 24);
+
+  button_displaydelete = gtk_button_new_with_mnemonic (_("display"));
+  gtk_widget_show (button_displaydelete);
+  gtk_fixed_put (GTK_FIXED (fixed_deleteelection), button_displaydelete, 56, 344);
+  gtk_widget_set_size_request (button_displaydelete, 66, 29);
 
   labelDELETE2 = gtk_label_new (_("Delete"));
   gtk_widget_show (labelDELETE2);
@@ -1875,57 +1891,52 @@ create_window_ADMIN (void)
 
   entry_displayelecid = gtk_entry_new ();
   gtk_widget_show (entry_displayelecid);
-  gtk_fixed_put (GTK_FIXED (fixed_displayelection), entry_displayelecid, 448, 160);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), entry_displayelecid, 120, 256);
   gtk_widget_set_size_request (entry_displayelecid, 160, 27);
   gtk_entry_set_invisible_char (GTK_ENTRY (entry_displayelecid), 8226);
 
   treeview_displayelec = gtk_tree_view_new ();
   gtk_widget_show (treeview_displayelec);
-  gtk_fixed_put (GTK_FIXED (fixed_displayelection), treeview_displayelec, 16, 136);
-  gtk_widget_set_size_request (treeview_displayelec, 300, 200);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), treeview_displayelec, 8, 48);
+  gtk_widget_set_size_request (treeview_displayelec, 560, 184);
 
   label79 = gtk_label_new ("");
   gtk_widget_show (label79);
   gtk_fixed_put (GTK_FIXED (fixed_displayelection), label79, 632, 424);
   gtk_widget_set_size_request (label79, 91, 17);
 
-  label_elecdisplaydef = gtk_label_new_with_mnemonic (_("<span foreground=\"red\" ><b>Display an Election</b></span>"));
-  gtk_widget_show (label_elecdisplaydef);
-  gtk_fixed_put (GTK_FIXED (fixed_displayelection), label_elecdisplaydef, 320, 40);
-  gtk_widget_set_size_request (label_elecdisplaydef, 153, 17);
-  gtk_label_set_use_markup (GTK_LABEL (label_elecdisplaydef), TRUE);
-  gtk_misc_set_alignment (GTK_MISC (label_elecdisplaydef), 0.56, 0.5);
-
   image4 = create_pixmap (window_ADMIN, "Independent High Authority for Elections of Tunisia (ISIE) logo - 280x280.png");
   gtk_widget_show (image4);
   gtk_fixed_put (GTK_FIXED (fixed_displayelection), image4, 568, 0);
   gtk_widget_set_size_request (image4, 192, 144);
 
-  button_displayelecid = gtk_button_new ();
-  gtk_widget_show (button_displayelecid);
-  gtk_fixed_put (GTK_FIXED (fixed_displayelection), button_displayelecid, 472, 296);
-  gtk_widget_set_size_request (button_displayelecid, 75, 29);
-
-  alignment20 = gtk_alignment_new (0.5, 0.5, 0, 0);
-  gtk_widget_show (alignment20);
-  gtk_container_add (GTK_CONTAINER (button_displayelecid), alignment20);
-
-  hbox20 = gtk_hbox_new (FALSE, 2);
-  gtk_widget_show (hbox20);
-  gtk_container_add (GTK_CONTAINER (alignment20), hbox20);
-
-  image35 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_BUTTON);
-  gtk_widget_show (image35);
-  gtk_box_pack_start (GTK_BOX (hbox20), image35, FALSE, FALSE, 0);
-
-  label102 = gtk_label_new_with_mnemonic (_("Search"));
-  gtk_widget_show (label102);
-  gtk_box_pack_start (GTK_BOX (hbox20), label102, FALSE, FALSE, 0);
-
   label_displayelecid = gtk_label_new (_("Election id:"));
   gtk_widget_show (label_displayelecid);
-  gtk_fixed_put (GTK_FIXED (fixed_displayelection), label_displayelecid, 336, 168);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), label_displayelecid, 24, 264);
   gtk_widget_set_size_request (label_displayelecid, 98, 17);
+
+  label_datedisplay = gtk_label_new (_("Date:"));
+  gtk_widget_show (label_datedisplay);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), label_datedisplay, 40, 304);
+  gtk_widget_set_size_request (label_datedisplay, 57, 17);
+
+  label_mundisplay = gtk_label_new (_("municipality:"));
+  gtk_widget_show (label_mundisplay);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), label_mundisplay, 8, 352);
+  gtk_widget_set_size_request (label_mundisplay, 107, 17);
+
+  entry_displaymun = gtk_entry_new ();
+  gtk_widget_show (entry_displaymun);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), entry_displaymun, 120, 352);
+  gtk_widget_set_size_request (entry_displaymun, 160, 27);
+  gtk_entry_set_invisible_char (GTK_ENTRY (entry_displaymun), 8226);
+
+  label_elecdisplaydef = gtk_label_new_with_mnemonic (_("<span foreground=\"red\" ><b>Display an Election</b></span>"));
+  gtk_widget_show (label_elecdisplaydef);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), label_elecdisplaydef, 152, 16);
+  gtk_widget_set_size_request (label_elecdisplaydef, 153, 17);
+  gtk_label_set_use_markup (GTK_LABEL (label_elecdisplaydef), TRUE);
+  gtk_misc_set_alignment (GTK_MISC (label_elecdisplaydef), 0.56, 0.5);
 
   button_stats = gtk_button_new ();
   gtk_widget_show (button_stats);
@@ -1947,6 +1958,60 @@ create_window_ADMIN (void)
   label103 = gtk_label_new_with_mnemonic (_("Statistics"));
   gtk_widget_show (label103);
   gtk_box_pack_start (GTK_BOX (hbox21), label103, FALSE, FALSE, 0);
+
+  button_searchelec = gtk_button_new ();
+  gtk_widget_show (button_searchelec);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), button_searchelec, 472, 296);
+  gtk_widget_set_size_request (button_searchelec, 75, 29);
+
+  alignment20 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment20);
+  gtk_container_add (GTK_CONTAINER (button_searchelec), alignment20);
+
+  hbox20 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox20);
+  gtk_container_add (GTK_CONTAINER (alignment20), hbox20);
+
+  image35 = gtk_image_new_from_stock ("gtk-find", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image35);
+  gtk_box_pack_start (GTK_BOX (hbox20), image35, FALSE, FALSE, 0);
+
+  label102 = gtk_label_new_with_mnemonic (_("Search"));
+  gtk_widget_show (label102);
+  gtk_box_pack_start (GTK_BOX (hbox20), label102, FALSE, FALSE, 0);
+
+  spinbutton_searchday_adj = gtk_adjustment_new (0, 1, 31, 1, 10, 10);
+  spinbutton_searchday = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton_searchday_adj), 1, 0);
+  gtk_widget_show (spinbutton_searchday);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), spinbutton_searchday, 120, 304);
+  gtk_widget_set_size_request (spinbutton_searchday, 60, 27);
+
+  spinbutton_searchmonth_adj = gtk_adjustment_new (0, 1, 12, 1, 10, 10);
+  spinbutton_searchmonth = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton_searchmonth_adj), 1, 0);
+  gtk_widget_show (spinbutton_searchmonth);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), spinbutton_searchmonth, 192, 304);
+  gtk_widget_set_size_request (spinbutton_searchmonth, 60, 27);
+
+  spinbutton_searchyear_adj = gtk_adjustment_new (0, 2022, 3000, 1, 10, 10);
+  spinbutton_searchyear = gtk_spin_button_new (GTK_ADJUSTMENT (spinbutton_searchyear_adj), 1, 0);
+  gtk_widget_show (spinbutton_searchyear);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), spinbutton_searchyear, 264, 304);
+  gtk_widget_set_size_request (spinbutton_searchyear, 80, 27);
+
+  checkbutton_idsearch = gtk_check_button_new_with_mnemonic ("");
+  gtk_widget_show (checkbutton_idsearch);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), checkbutton_idsearch, 280, 256);
+  gtk_widget_set_size_request (checkbutton_idsearch, 118, 24);
+
+  checkbutton_datesearch = gtk_check_button_new_with_mnemonic ("");
+  gtk_widget_show (checkbutton_datesearch);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), checkbutton_datesearch, 352, 304);
+  gtk_widget_set_size_request (checkbutton_datesearch, 118, 24);
+
+  checkbutton_munsearch = gtk_check_button_new_with_mnemonic ("");
+  gtk_widget_show (checkbutton_munsearch);
+  gtk_fixed_put (GTK_FIXED (fixed_displayelection), checkbutton_munsearch, 280, 352);
+  gtk_widget_set_size_request (checkbutton_munsearch, 118, 24);
 
   labelDISPLAY2 = gtk_label_new (_("Display"));
   gtk_widget_show (labelDISPLAY2);
@@ -2490,17 +2555,29 @@ create_window_ADMIN (void)
   g_signal_connect ((gpointer) treeview_displayelecdelete, "row_activated",
                     G_CALLBACK (on_treeview_displayelecdelete_row_activated),
                     NULL);
-  g_signal_connect ((gpointer) button_displaydelete, "clicked",
-                    G_CALLBACK (on_button_displaydelete_clicked),
-                    NULL);
   g_signal_connect ((gpointer) button_deleteelec, "clicked",
                     G_CALLBACK (on_button_deleteelec_clicked),
                     NULL);
-  g_signal_connect ((gpointer) checkbutton_confirmelecdelete, "toggled",
-                    G_CALLBACK (on_checkbutton_confirmelecdelete_toggled),
+  g_signal_connect ((gpointer) checkbutton_conelecdelete, "toggled",
+                    G_CALLBACK (on_checkbutton_conelecdelete_toggled),
+                    NULL);
+  g_signal_connect ((gpointer) button_displaydelete, "clicked",
+                    G_CALLBACK (on_button_displaydelete_clicked),
                     NULL);
   g_signal_connect ((gpointer) button_stats, "clicked",
                     G_CALLBACK (on_button_stats_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) button_searchelec, "clicked",
+                    G_CALLBACK (on_button_searchelec_clicked),
+                    NULL);
+  g_signal_connect ((gpointer) checkbutton_idsearch, "toggled",
+                    G_CALLBACK (on_checkbutton_idsearch_toggled),
+                    NULL);
+  g_signal_connect ((gpointer) checkbutton_datesearch, "toggled",
+                    G_CALLBACK (on_checkbutton_datesearch_toggled),
+                    NULL);
+  g_signal_connect ((gpointer) checkbutton_munsearch, "toggled",
+                    G_CALLBACK (on_checkbutton_munsearch_toggled),
                     NULL);
 
   /* Store pointers to all widgets, for use by lookup_widget(). */
@@ -2755,32 +2832,41 @@ create_window_ADMIN (void)
   GLADE_HOOKUP_OBJECT (window_ADMIN, fixed_deleteelection, "fixed_deleteelection");
   GLADE_HOOKUP_OBJECT (window_ADMIN, treeview_displayelecdelete, "treeview_displayelecdelete");
   GLADE_HOOKUP_OBJECT (window_ADMIN, errlabel_deleteelec, "errlabel_deleteelec");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, label_deleteelecdef, "label_deleteelecdef");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, button_displaydelete, "button_displaydelete");
   GLADE_HOOKUP_OBJECT (window_ADMIN, button_deleteelec, "button_deleteelec");
   GLADE_HOOKUP_OBJECT (window_ADMIN, alignment7, "alignment7");
   GLADE_HOOKUP_OBJECT (window_ADMIN, hbox7, "hbox7");
   GLADE_HOOKUP_OBJECT (window_ADMIN, image22, "image22");
   GLADE_HOOKUP_OBJECT (window_ADMIN, label89, "label89");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, checkbutton_confirmelecdelete, "checkbutton_confirmelecdelete");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, label_deleteelecdef, "label_deleteelecdef");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, checkbutton_conelecdelete, "checkbutton_conelecdelete");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, button_displaydelete, "button_displaydelete");
   GLADE_HOOKUP_OBJECT (window_ADMIN, labelDELETE2, "labelDELETE2");
   GLADE_HOOKUP_OBJECT (window_ADMIN, fixed_displayelection, "fixed_displayelection");
   GLADE_HOOKUP_OBJECT (window_ADMIN, entry_displayelecid, "entry_displayelecid");
   GLADE_HOOKUP_OBJECT (window_ADMIN, treeview_displayelec, "treeview_displayelec");
   GLADE_HOOKUP_OBJECT (window_ADMIN, label79, "label79");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, label_elecdisplaydef, "label_elecdisplaydef");
   GLADE_HOOKUP_OBJECT (window_ADMIN, image4, "image4");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, button_displayelecid, "button_displayelecid");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, alignment20, "alignment20");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, hbox20, "hbox20");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, image35, "image35");
-  GLADE_HOOKUP_OBJECT (window_ADMIN, label102, "label102");
   GLADE_HOOKUP_OBJECT (window_ADMIN, label_displayelecid, "label_displayelecid");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, label_datedisplay, "label_datedisplay");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, label_mundisplay, "label_mundisplay");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, entry_displaymun, "entry_displaymun");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, label_elecdisplaydef, "label_elecdisplaydef");
   GLADE_HOOKUP_OBJECT (window_ADMIN, button_stats, "button_stats");
   GLADE_HOOKUP_OBJECT (window_ADMIN, alignment21, "alignment21");
   GLADE_HOOKUP_OBJECT (window_ADMIN, hbox21, "hbox21");
   GLADE_HOOKUP_OBJECT (window_ADMIN, image36, "image36");
   GLADE_HOOKUP_OBJECT (window_ADMIN, label103, "label103");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, button_searchelec, "button_searchelec");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, alignment20, "alignment20");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, hbox20, "hbox20");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, image35, "image35");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, label102, "label102");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, spinbutton_searchday, "spinbutton_searchday");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, spinbutton_searchmonth, "spinbutton_searchmonth");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, spinbutton_searchyear, "spinbutton_searchyear");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, checkbutton_idsearch, "checkbutton_idsearch");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, checkbutton_datesearch, "checkbutton_datesearch");
+  GLADE_HOOKUP_OBJECT (window_ADMIN, checkbutton_munsearch, "checkbutton_munsearch");
   GLADE_HOOKUP_OBJECT (window_ADMIN, labelDISPLAY2, "labelDISPLAY2");
   GLADE_HOOKUP_OBJECT (window_ADMIN, label_electionmanagnment, "label_electionmanagnment");
   GLADE_HOOKUP_OBJECT (window_ADMIN, notebook_pollingstation, "notebook_pollingstation");
@@ -4583,6 +4669,11 @@ create_window_statsoum (void)
 {
   GtkWidget *window_statsoum;
   GtkWidget *fixed_statsoum;
+  GtkWidget *button_backelec;
+  GtkWidget *alignment24;
+  GtkWidget *hbox24;
+  GtkWidget *image41;
+  GtkWidget *label128;
 
   window_statsoum = gtk_window_new (GTK_WINDOW_TOPLEVEL);
   gtk_window_set_title (GTK_WINDOW (window_statsoum), _("window_statsoum"));
@@ -4591,9 +4682,39 @@ create_window_statsoum (void)
   gtk_widget_show (fixed_statsoum);
   gtk_container_add (GTK_CONTAINER (window_statsoum), fixed_statsoum);
 
+  button_backelec = gtk_button_new ();
+  gtk_widget_show (button_backelec);
+  gtk_fixed_put (GTK_FIXED (fixed_statsoum), button_backelec, 112, 360);
+  gtk_widget_set_size_request (button_backelec, 66, 29);
+
+  alignment24 = gtk_alignment_new (0.5, 0.5, 0, 0);
+  gtk_widget_show (alignment24);
+  gtk_container_add (GTK_CONTAINER (button_backelec), alignment24);
+
+  hbox24 = gtk_hbox_new (FALSE, 2);
+  gtk_widget_show (hbox24);
+  gtk_container_add (GTK_CONTAINER (alignment24), hbox24);
+
+  image41 = gtk_image_new_from_stock ("gtk-undo", GTK_ICON_SIZE_BUTTON);
+  gtk_widget_show (image41);
+  gtk_box_pack_start (GTK_BOX (hbox24), image41, FALSE, FALSE, 0);
+
+  label128 = gtk_label_new_with_mnemonic (_("Back"));
+  gtk_widget_show (label128);
+  gtk_box_pack_start (GTK_BOX (hbox24), label128, FALSE, FALSE, 0);
+
+  g_signal_connect ((gpointer) button_backelec, "clicked",
+                    G_CALLBACK (on_button_backelec_clicked),
+                    NULL);
+
   /* Store pointers to all widgets, for use by lookup_widget(). */
   GLADE_HOOKUP_OBJECT_NO_REF (window_statsoum, window_statsoum, "window_statsoum");
   GLADE_HOOKUP_OBJECT (window_statsoum, fixed_statsoum, "fixed_statsoum");
+  GLADE_HOOKUP_OBJECT (window_statsoum, button_backelec, "button_backelec");
+  GLADE_HOOKUP_OBJECT (window_statsoum, alignment24, "alignment24");
+  GLADE_HOOKUP_OBJECT (window_statsoum, hbox24, "hbox24");
+  GLADE_HOOKUP_OBJECT (window_statsoum, image41, "image41");
+  GLADE_HOOKUP_OBJECT (window_statsoum, label128, "label128");
 
   return window_statsoum;
 }
