@@ -350,24 +350,7 @@ else
 	while(fscanf(f,"%s %d %d %d %s %s %s %d",elecid,&daelec.d,&daelec.m,&daelec.y,municip,numhab,numps,&electype)!=EOF)
 	{  
 	
-        if(strlen(id)!=0 && strcmp(elecid,id)==0)
-	{
-gtk_list_store_append(store,&iter);
-sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
-election_type(electype,msg);
-gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
-	}
-	if(da.d!=0 && da.m!=0 && da.y!=0)
-	{
-		if(da.d==daelec.d && da.m==daelec.m && da.y==daelec.y )
-		{
-gtk_list_store_append(store,&iter);
-sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
-election_type(electype,msg);
-gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
-		}
-        }
-        if(strlen(mun)!=0 && strcmp(municip,mun)==0)
+        if(strlen(id)!=0 && strcmp(elecid,id)==0 && da.d!=0 && da.m!=0 && da.y!=0 && da.d==daelec.d && da.m==daelec.m && da.y==daelec.y && strlen(mun)!=0 && strcmp(municip,mun)==0)
 	{
 gtk_list_store_append(store,&iter);
 sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
@@ -375,7 +358,62 @@ election_type(electype,msg);
 gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
 	}
 
+        if(da.d!=0 && da.m!=0 && da.y!=0 && da.d==daelec.d && da.m==daelec.m && da.y==daelec.y && strlen(mun)!=0 && strcmp(municip,mun)==0 && strlen(id)==0)
+ 	{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
 	}
+	if(strlen(id)!=0 && strcmp(elecid,id)==0 && da.d!=0 && da.m!=0 && da.y!=0 && da.d==daelec.d && da.m==daelec.m && da.y==daelec.y && strlen(mun)==0)
+	{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
+	}
+
+        if(strlen(id)!=0 && strcmp(elecid,id)==0 && strlen(mun)!=0 && strcmp(municip,mun)==0 && da.d==0 && da.m==0 && da.y==0 )
+	{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
+	}
+	if(strlen(mun)!=0 && strcmp(municip,mun)==0 && da.d==0 && da.m==0 && da.y==0 && strlen(id)==0)
+	{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
+	}
+	if(da.d!=0 && da.m!=0 && da.y!=0 && da.d==daelec.d && da.m==daelec.m && da.y==daelec.y && strlen(id)==0 && strlen(mun)==0)
+	{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
+	}
+	if(strlen(id)!=0 && strcmp(elecid,id)==0 && da.d==0 && da.m==0 && da.y==0 && strlen(mun)==0)
+	{
+gtk_list_store_append(store,&iter);
+sprintf(elecdate,"%d/%d/%d",daelec.d,daelec.m,daelec.y);
+election_type(electype,msg);
+gtk_list_store_set(store,&iter,ELECID,elecid,DATE,elecdate,MUNICIPALITY,municip,NUMHAB,numhab,NUMPS,numps,ELECTYPE,msg,-1);
+	}
+
+
+	
+}
+        
+
+
+
+
+
+
+
+	
 fclose(f);
 gtk_tree_view_set_model(GTK_TREE_VIEW(list),GTK_TREE_MODEL(store));
 g_object_unref(store);

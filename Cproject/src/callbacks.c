@@ -345,43 +345,18 @@ on_button_searchelec_clicked           (GtkWidget      *button,
         MUN=lookup_widget(button,"entry_displaymun");
 	char id[20]="";date da;char mun[20]="";da.d=0;da.m=0;da.y=0;
 
-	if(criteria[0]==1 && criteria[1]==0 && criteria[2]==0)
+	if(criteria[0]==1 )
 	{strcpy(id,gtk_entry_get_text(GTK_ENTRY(ID)));criteria[0]=0;}
 
-	if(criteria[1]==1 && criteria[0]==0 && criteria[2]==0)
+	if(criteria[1]==1 )
       	{da.d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(DAY));
       	 da.m=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(MONTH));
       	 da.y=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(YEAR));criteria[1]=0;}
 
-	if(criteria[2]==1 && criteria[1]==0 && criteria[0]==0)
+	if(criteria[2]==1 )
 	{strcpy(mun,gtk_entry_get_text(GTK_ENTRY(MUN)));criteria[2]=0;}
 
-        /*if(criteria[0]==1 && criteria[1]==1 && criteria[2]==0)
-	{strcpy(id,gtk_entry_get_text(GTK_ENTRY(ID)));
-         da.d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(DAY));
-      	 da.m=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(MONTH));
-      	 da.y=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(YEAR));criteria[1]=0;
-         criteria[0]=0;}
-
-	if(criteria[0]==1 && criteria[1]==0 && criteria[2]==1)
-	{strcpy(id,gtk_entry_get_text(GTK_ENTRY(ID)));
-         strcpy(mun,gtk_entry_get_text(GTK_ENTRY(MUN)));
-         criteria[2]=0;criteria[0]=0;}
-
-	if(criteria[0]==0 && criteria[1]==1 && criteria[2]==1)
-	{da.d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(DAY));
-      	 da.m=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(MONTH));
-      	 da.y=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(YEAR));
-         strcpy(mun,gtk_entry_get_text(GTK_ENTRY(MUN)));
-         criteria[1]=0;criteria[2]=0;}
-
-	if(criteria[0]==1 && criteria[1]==1 && criteria[2]==1)
-	{strcpy(id,gtk_entry_get_text(GTK_ENTRY(ID)));
-         da.d=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(DAY));
-      	 da.m=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(MONTH));
-      	 da.y=gtk_spin_button_get_value_as_int(GTK_SPIN_BUTTON(YEAR));
-	 strcpy(mun,gtk_entry_get_text(GTK_ENTRY(MUN)));
-         criteria[0]==0;criteria[1]==0;criteria[2]==0;}*/
+        
 
 	search_display(treeview,id,da,mun);
         
