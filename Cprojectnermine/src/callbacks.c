@@ -774,7 +774,7 @@ else {gtk_label_set_text(GTK_LABEL(label_DELETE4),"CLAIM not DELETED");}
 
 
 void
-on_viewbuttondisplay_clicked           (GtkButton       *button,
+on_viewbuttondisplay_clicked           (GtkWidget       *button,
                                         gpointer         user_data)
 {
    GtkWidget *treeview;

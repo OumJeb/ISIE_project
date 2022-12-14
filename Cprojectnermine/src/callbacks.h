@@ -173,5 +173,5 @@ on_deletebutton_clicked                (GtkWidget       *objet_graphique,
                                         gpointer         user_data);
 
 void
-on_viewbuttondisplay_clicked           (GtkButton       *button,
+on_viewbuttondisplay_clicked           (GtkWidget      *button,
                                         gpointer         user_data);
