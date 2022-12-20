@@ -9,3 +9,4 @@ GtkWidget* create_window_electorallist (void);
 GtkWidget* create_window_statsoum (void);
 GtkWidget* create_window_signinadmin (void);
 GtkWidget* create_window_signinactor (void);
+GtkWidget* create_window_nerminestats (void);

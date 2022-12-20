@@ -175,3 +175,19 @@ on_deletebutton_clicked                (GtkWidget       *objet_graphique,
 void
 on_viewbuttondisplay_clicked           (GtkWidget      *button,
                                         gpointer         user_data);
+
+void
+on_button_displaystats_clicked         (GtkWidget       *button,
+                                        gpointer         user_data);
+
+void
+on_button_nerstats_clicked             (GtkWidget       *button,
+                                        gpointer         user_data);
+
+void
+on_identrydisplay_toggled              (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);
+
+void
+on_mundisplay_toggled                  (GtkToggleButton *togglebutton,
+                                        gpointer         user_data);

@@ -127,7 +127,7 @@ enum
 };
 
 void display_claim(GtkWidget *list)
-{
+{/*
 	GtkCellRenderer *renderer;
 	
 	GtkTreeViewColumn *column;
@@ -196,7 +196,7 @@ void display_claim(GtkWidget *list)
 		g_object_unref(store);
 	}
  
-}}
+}*/}
 
 void claim_type(int type[3],char msg[20])
 {

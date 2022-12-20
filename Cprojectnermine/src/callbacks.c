@@ -8,6 +8,7 @@
 #include "interface.h"
 #include "support.h"
 #include "claimsfunctions.h"
+#include "oumaymastats.c"
 
 
 //////////////////////////////////////OUMAYMA/////////////////////////////////////////////////
@@ -110,6 +111,12 @@ on_button_stats_clicked                (GtkWidget       *button,
   gtk_widget_hide (window_ADMIN);
   window_statsoum = create_window_statsoum ();
   gtk_widget_show (window_statsoum);
+   GtkWidget *treeview1;
+   treeview1=lookup_widget(button,"treeview_orderedelectorallists");
+   display_ordered(treeview1);
+   GtkWidget *treeview2;
+   treeview2=lookup_widget(button,"treeview_nbvotes");
+   display_nbvotes(treeview2);
 }
 
 
@@ -776,9 +783,88 @@ else {gtk_label_set_text(GTK_LABEL(label_DELETE4),"CLAIM not DELETED");}
 void
 on_viewbuttondisplay_clicked           (GtkWidget       *button,
                                         gpointer         user_data)
-{
-   GtkWidget *treeview;
+{/*Claim c;
+	GtkWidget *ID,*MUN,*ellist;
+	GtkWidget *treeview;
+
+	treeview=lookup_widget(button,"treeview_displayelec");
+        ID=lookup_widget(button,"entry_displayelecid");
+        
+        MUN=lookup_widget(button,"entry_displaymun");
+        ellist=lookup_widget(button,"entry_displayellist");
+
+	char id[20]="";char electorallist="";char mun[20]="";
+
+	if(criteria[0]==1 )
+	{strcpy(c.id,gtk_entry_get_text(GTK_ENTRY(ID)));criteria[0]=0;}
+
+	if(criteria[1]==1 )
+      	{strcpy(c.municipality,gtk_entry_get_text(GTK_ENTRY(MUN)));criteria[1]=0;}
+
+	if(criteria[2]==1 )
+	{strcpy(c.electoral_list,gtk_entry_get_text(GTK_ENTRY(ellist)));criteria[2]=0;}
+
+        
+
+	display_claim(treeview,c.id,c.municipality,c.electoral_list);
+   /*GtkWidget *treeview;
    treeview=lookup_widget(button,"treeviewdisplayclaim");
-   display_claim(treeview);
+   display_claim(treeview);*/
+}
+
+
+void
+on_button_displaystats_clicked         (GtkWidget       *button,
+                                        gpointer         user_data)
+{/*
+float v;
+int n;
+
+GtkWidget *averageage;
+GtkWidget *numofclaims;
+averageage= lookup_widget(button, "averageage");
+numofclaims= lookup_widget(button, "numofclaims");
+
+strcpy(electorallist,gtk_entry_get_text(GTK_ENTRY(ellist)));
+
+v=average( "usersfile");
+n=nbrclaims( "claimsfile",electorallist);
+
+
+gtk_label_set_text(GTK_LABEL(averageage),v);
+gtk_label_set_text(GTK_LABEL(numofclaims),n);*/
+}
+
+
+void
+on_button_nerstats_clicked             (GtkWidget       *button,
+                                        gpointer         user_data)
+{
+  /*GtkWidget *window_claim;
+  GtkWidget *window_nerminestats;
+  window_claim = lookup_widget(button, "window_claim");
+  gtk_widget_hide (window_claim);
+  window_nerminestats = create_window_nerminestats();
+  gtk_widget_show (window_nerminestats);*/
+}
+
+
+void
+on_identrydisplay_toggled              (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+  if(gtk_toggle_button_get_active(togglebutton))
+       {criteria[0]=1;}
+
+}
+
+
+void
+on_mundisplay_toggled                  (GtkToggleButton *togglebutton,
+                                        gpointer         user_data)
+{
+  if(gtk_toggle_button_get_active(togglebutton))
+       {criteria[1]=1;}
+
 }
 
